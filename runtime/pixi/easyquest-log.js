@@ -576,6 +576,55 @@ var ICON_ART = {
     "..twwwwwwwwwt...",
     ".tWwwwwwwwwwWt..",
     "..ttttttttttt..."
+  ],
+  // Ramadan / Hari Raya (multicultural village demo)
+  kurma: [
+    "......G.........",
+    ".....Gg.........",
+    "....bBg.bb......",
+    "...bttBbtbB.....",
+    "...btbBbbbB.....",
+    "...bbbB.bbB.bb..",
+    "....BB.bb.BbtbB.",
+    ".......btbBbbbB.",
+    ".......bbbB.BB..",
+    "........BB......"
+  ],
+  bubur: [
+    ".....y..o.......",
+    "....wwwwwwwww...",
+    "...wtttyttttw...",
+    "..wttottttottw..",
+    "..sssssssssssss.",
+    "..sWWWWWWWWWWWs.",
+    "...sSSSSSSSSSs..",
+    ".....SSSSSSS...."
+  ],
+  ketupat: [
+    "..........G.....",
+    ".........G......",
+    "......lgG.......",
+    ".....lgGlg......",
+    "....lgGlgGl.....",
+    "...lgGlgGlgG....",
+    "...gGlgGlgGl....",
+    "....GlgGlgG.....",
+    ".....lgGlg......",
+    "......gGl.......",
+    ".......G........"
+  ],
+  pelita: [
+    "......Y.........",
+    ".....YyY........",
+    ".....yoy........",
+    "......B.........",
+    ".....ggg........",
+    ".....gGg........",
+    ".....gGg........",
+    ".....lGg........",
+    ".....gGg........",
+    ".....gGg........",
+    "....bbbbb......."
   ]
 };
 var ICON_NAMES = Object.keys(ICON_ART);

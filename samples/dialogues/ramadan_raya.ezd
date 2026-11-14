@@ -1,0 +1,89 @@
+// รอมฎอนถึงรายอ — Easy Dialogue script for Easy Quest's ramadan_raya questline (multicultural village)
+// ต้น (a Buddhist boy) helps his Muslim neighbours share iftar food during Ramadan, then prepares for Hari Raya.
+// @camera targets are spawns of Easy Tilemap's multicultural_village. Custom events: @iftar, @raya, @pelita, @maaf.
+@title รอมฎอนถึงรายอ
+@id ramadan_raya
+@start ramadan
+@box paper
+@var gave_kurma = false
+@var ketupat = 0
+@var greeted_raya = false
+@var shared_ketupat = false
+
+@char ton "ต้น" portrait=town_kid color=#f4ae3d voice=th_boy
+@char adam "อาดัม" portrait=town_kopiah_boy color=#5fae6e side=right voice=th_boy2
+@char kakna "ก๊ะนะ" portrait=town_roti_seller color=#c8506a side=right voice=th_auntie_south
+@char pakcik "ปะจิอิสมะแอ" portrait=town_pak_cik color=#d8d2c0 side=right voice=th_uncle_south
+@char fatimah "ก๊ะฟาตีมะห์" portrait=town_hijab_teacher color=#3fa08a side=right voice=th_teacher
+@char vendor "ป้าแดง" portrait=town_vendor color=#e5806c side=right voice=th_auntie
+
+=== ramadan #ramadan
+@camera market
+> เดือนรอมฎอน เพื่อนมุสลิมถือศีลอดตั้งแต่ฟ้าสางจนตะวันตกดิน ตอนเย็นตลาดจึงคึกคักเป็นพิเศษ
+kakna [happy]: ต้น ช่วยก๊ะหน่อยได้ไหม บูโบหม้อนี้กับอินทผลัมจะเอาไปให้คนละศีลอดที่มัสยิด
+ton: ได้ครับก๊ะ ผมไม่ได้ถือศีลอด แต่ผมช่วยยกได้นะ
+vendor [happy]: ป้าแดงฝากส้มโอไปด้วยถุงหนึ่ง แบ่งกันกินนะ
+* รับของแล้วรีบไปมัสยิด -> mosque
+* วันนี้ไม่ว่างครับ -> later
+
+=== later
+kakna: ไม่เป็นไรจ้ะ ไว้วันหลังนะต้น
+-> END
+
+=== mosque
+@camera mosque
+> ที่ลานมัสยิด ผู้ใหญ่ปูเสื่อยาว จานอินทผลัมกับน้ำวางเรียงไว้ รอเวลาตะวันตกดิน
+adam [happy]: ต้น! มาช่วยจริงๆ ด้วย
+ton: ก๊ะนะกับป้าแดงฝากบูโบกับส้มโอมาครับ
+pakcik [happy]: ขอบใจมากหลาน ปีไหนๆ เพื่อนบ้านทุกบ้านก็ช่วยกันแบบนี้
+* ยื่นอินทผลัมให้ปะจิ
+    ~ gave_kurma = true
+    pakcik [happy]: อินทผลัมนี่ละศีลอดลูกแรกเลย ตามแบบอย่างที่เราถือกันมา
+* ช่วยอาดัมรินน้ำใส่แก้ว
+    adam: แก้วละครึ่งพอนะ เดี๋ยวหก
+    ~ gave_kurma = true
+> เสียงอะซานดังมาจากหออะซาน ถึงเวลาละศีลอด
+@iftar
+fatimah [happy]: ต้นนั่งกินด้วยกันนะ ไม่ต้องเกรงใจ
+ton [happy]: ขอบคุณครับก๊ะ
+-> raya_prep
+
+=== raya_prep #raya
+@camera tadika
+> สิบกว่าวันต่อมา ใกล้วันรายอแล้ว ลานหน้าตาดีกาเต็มไปด้วยใบมะพร้าวอ่อน
+@raya prep
+pakcik: วันนี้เราสานตูปะ ปลอกใบมะพร้าวไว้หุงข้าวในวันรายอ
+pakcik [thinking]: จับใบแบบนี้ พับลง สอดเข้าไป...
+* ลองสานอย่างตั้งใจ
+    ~ ketupat += 2
+    pakcik [happy]: เก่งนี่ ลูกแรกก็สวยแล้ว
+* ลองสานเร็วๆ ให้ได้เยอะ
+    ~ ketupat += 1
+    adam [happy]: ฮ่าๆ ลูกนี้เบี้ยวหน่อยนะ แต่ใช้ได้
+adam: อีกสองลูก มาช่วยกันสานให้ครบ
+~ ketupat += 2
+fatimah [happy]: แล้วคืนนี้มาช่วยจุดตะเกียงปะลิตาหน้าบ้านนะ
+> พอฟ้ามืด ตะเกียงไม้ไผ่เรียงเป็นแถวตลอดถนนหน้าบ้าน
+@pelita lit
+ton [happy]: สวยเหมือนดาวลงมาเดินเลยครับ
+-> raya_day
+
+=== raya_day #raya
+@camera mosque
+> เช้าวันรายอ พี่น้องมุสลิมไปละหมาดวันรายอที่มัสยิด ทุกคนแต่งชุดใหม่ ต้นมารอเพื่อนที่หน้ามัสยิด
+adam [happy]: ต้น! มาแล้วเหรอ
+* สลามัตฮารีรายอนะอาดัม
+    ~ greeted_raya = true
+    adam [happy]: สลามัตฮารีรายอ! ต้นจำได้ด้วย
+* สวัสดีวันรายอนะ
+    ~ greeted_raya = true
+    adam [happy]: ขอบใจนะ ปีนี้มากินข้าวบ้านเราด้วยกัน
+pakcik: วันรายอ เราขอมาอัฟกัน คือขออภัยกันในสิ่งที่เคยทำผิดต่อกันมา
+adam [shy]: ต้น ขอมาอัฟนะ ที่เคยแย่งลูกบอลนาย
+ton [happy]: ไม่เป็นไรเลย ผมก็ขอโทษเหมือนกัน
+@maaf
+pakcik [happy]: เอาตูปะกับแกงไก่ไปฝากตาเพิ่มกับป้าแดงด้วยนะหลาน
+~ shared_ketupat = true
+vendor [happy]: ขอบใจจ้ะ ช่วงสารทเดือนสิบ ป้าจะทำขนมลาใหม่ๆ ส่งไปให้บ้านอาดัมบ้าง
+@sfx raya_loop
+-> END

@@ -46,4 +46,12 @@ await save("questlog-failed.png", await renderQuestLog(root, doc, { state: faile
   }
   await save("questlog-styles.png", c.toBuffer("image/png"));
 }
+// multicultural village: Ramadan iftar sharing → Hari Raya questline
+{
+  const raya = await compileById(root, "ramadan_raya");
+  const st = async (inputs: string) => (await runSimulation(root, raya, parseInputs(inputs).inputs)).state;
+  const prep = await st("camera market; camera mosque; ~ gave_kurma = true; iftar; camera tadika; raya prep; ~ ketupat = 2");
+  await save("questlog-raya-prep.png", await renderQuestLog(root, raya, { state: prep, selected: "raya_prep", scale: 3, style: "paper" }));
+  await save("questlog-raya.png", await renderQuestLog(root, raya, { state: await st("play ramadan_raya 0,0,0,0"), selected: "raya_visit", scale: 3, style: "lantern" }));
+}
 await rm(root, { recursive: true, force: true });

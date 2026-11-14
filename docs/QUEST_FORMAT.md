@@ -19,7 +19,8 @@ Indentation (any amount of spaces) marks a block's body.
   Every variable of a linked dialogue becomes a flag automatically (`fromDialogue`). If you declare it again,
   you can only add a label or icon; a different default value triggers a warning.
 * **Items** are counted (`give mango 2`). The icon names are the built-in 16px icons (`sticky_rice`,
-  `morning_glory`, `balm`, `mango`, `kanom_chan`, `nam_pan`, `coin`, `heart`, `bag`, `scroll`). An item
+  `morning_glory`, `balm`, `mango`, `kanom_chan`, `nam_pan`, `coin`, `heart`, `bag`, `scroll`, and for
+  Ramadan / Hari Raya `kurma` (dates), `bubur`, `ketupat`, `pelita`). An item
   with no icon gets an icon matching its id, or a bag.
 
 ## Quests
