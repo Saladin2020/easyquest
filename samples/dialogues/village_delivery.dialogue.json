@@ -1,0 +1,537 @@
+{
+  "format": "easydialogue/1",
+  "id": "village_delivery",
+  "title": "ต้นส่งของรอบหมู่บ้าน",
+  "start": "market",
+  "lang": "th",
+  "variables": {
+    "delivered": 0,
+    "coins": 0,
+    "mango": false
+  },
+  "characters": {
+    "kid": {
+      "id": "kid",
+      "name": "ต้น",
+      "portrait": "town_kid",
+      "color": "#f4ae3d",
+      "voice": "th_boy"
+    },
+    "vendor": {
+      "id": "vendor",
+      "name": "ป้าแดง",
+      "portrait": "town_vendor",
+      "color": "#e5806c",
+      "voice": "th_auntie",
+      "side": "right"
+    },
+    "monk": {
+      "id": "monk",
+      "name": "หลวงพี่",
+      "portrait": "town_monk",
+      "color": "#f0a030",
+      "voice": "th_monk",
+      "side": "right"
+    },
+    "farmer": {
+      "id": "farmer",
+      "name": "ลุงมี",
+      "portrait": "town_farmer",
+      "color": "#79c48a",
+      "voice": "th_uncle",
+      "side": "right"
+    },
+    "student": {
+      "id": "student",
+      "name": "พี่ฝน",
+      "portrait": "town_student",
+      "color": "#8fc7e8",
+      "voice": "th_girl",
+      "side": "right"
+    },
+    "elder": {
+      "id": "elder",
+      "name": "ตาเพิ่ม",
+      "portrait": "town_elder",
+      "color": "#cdb492",
+      "voice": "th_grandpa",
+      "side": "right"
+    }
+  },
+  "nodes": {
+    "market": {
+      "id": "market",
+      "tags": [
+        "intro"
+      ],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "market"
+          ],
+          "src": 19
+        },
+        {
+          "t": "line",
+          "id": "market_1",
+          "text": "เช้าวันเสาร์ ตลาดหน้าหมู่บ้านคึกคักกว่าทุกวัน",
+          "src": 20
+        },
+        {
+          "t": "line",
+          "id": "market_2",
+          "speaker": "vendor",
+          "emotion": "happy",
+          "text": "ต้นจ๋า มาพอดีเลย ช่วยป้าส่งของให้ลูกค้าสามเจ้าหน่อยได้ไหม",
+          "src": 21
+        },
+        {
+          "t": "line",
+          "id": "market_3",
+          "speaker": "kid",
+          "emotion": "surprised",
+          "text": "ตั้งสามเจ้าเลยเหรอครับป้าแดง",
+          "src": 22
+        },
+        {
+          "t": "line",
+          "id": "market_4",
+          "speaker": "vendor",
+          "text": "ข้าวเหนียวมะม่วงถวายหลวงพี่ ผักบุ้งให้ลุงมี แล้วก็ยาหม่องที่ผู้ใหญ่บ้านฝากให้ตาเพิ่มจ้ะ",
+          "src": 23
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "market_c5",
+              "text": "ได้เลยครับ! เดี๋ยวผมจัดให้",
+              "body": [
+                {
+                  "t": "line",
+                  "id": "market_6",
+                  "speaker": "vendor",
+                  "emotion": "happy",
+                  "text": "ขอบใจจ้ะ นี่ค่าขนมสิบบาทนะ",
+                  "src": 25
+                },
+                {
+                  "t": "set",
+                  "var": "coins",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 10
+                  },
+                  "src": 26
+                },
+                {
+                  "t": "jump",
+                  "target": "temple",
+                  "src": 27
+                }
+              ],
+              "src": 24
+            },
+            {
+              "id": "market_c7",
+              "text": "ขอแวะซื้อน้ำปั่นก่อนได้ไหมครับ",
+              "body": [
+                {
+                  "t": "line",
+                  "id": "market_8",
+                  "speaker": "vendor",
+                  "emotion": "thinking",
+                  "text": "ไปเร็วๆ นะลูก เดี๋ยวข้าวเหนียวจะเย็นหมด",
+                  "src": 29
+                },
+                {
+                  "t": "set",
+                  "var": "coins",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 5
+                  },
+                  "src": 30
+                },
+                {
+                  "t": "jump",
+                  "target": "temple",
+                  "src": 31
+                }
+              ],
+              "src": 28
+            },
+            {
+              "id": "market_c9",
+              "text": "วันนี้ผมไม่ว่างครับ",
+              "body": [
+                {
+                  "t": "jump",
+                  "target": "refuse",
+                  "src": 32
+                }
+              ],
+              "src": 32
+            }
+          ],
+          "src": 24
+        }
+      ],
+      "src": 18
+    },
+    "refuse": {
+      "id": "refuse",
+      "tags": [],
+      "body": [
+        {
+          "t": "line",
+          "id": "refuse_1",
+          "speaker": "vendor",
+          "emotion": "sad",
+          "text": "ไม่เป็นไรจ้ะ ไว้วันหลังมาช่วยป้านะ",
+          "src": 35
+        },
+        {
+          "t": "end",
+          "src": 36
+        }
+      ],
+      "src": 34
+    },
+    "temple": {
+      "id": "temple",
+      "tags": [],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "temple"
+          ],
+          "src": 39
+        },
+        {
+          "t": "line",
+          "id": "temple_1",
+          "text": "ต้นวิ่งผ่านร้านก๋วยเตี๋ยวไปจนถึงหน้าวัด",
+          "src": 40
+        },
+        {
+          "t": "line",
+          "id": "temple_2",
+          "speaker": "monk",
+          "emotion": "happy",
+          "text": "เจริญพร ต้น วันนี้มาแต่เช้าเลยนะ",
+          "src": 41
+        },
+        {
+          "t": "line",
+          "id": "temple_3",
+          "speaker": "kid",
+          "text": "ป้าแดงฝากข้าวเหนียวมะม่วงมาถวายครับหลวงพี่",
+          "src": 42
+        },
+        {
+          "t": "set",
+          "var": "delivered",
+          "op": "+=",
+          "value": {
+            "k": "num",
+            "v": 1
+          },
+          "src": 43
+        },
+        {
+          "t": "line",
+          "id": "temple_4",
+          "speaker": "monk",
+          "text": "อนุโมทนา ฝากขอบใจป้าแดงด้วยนะ",
+          "src": 44
+        },
+        {
+          "t": "jump",
+          "target": "farm",
+          "src": 45
+        }
+      ],
+      "src": 38
+    },
+    "farm": {
+      "id": "farm",
+      "tags": [],
+      "body": [
+        {
+          "t": "line",
+          "id": "farm_1",
+          "speaker": "farmer",
+          "emotion": "thinking",
+          "text": "ผักบุ้งของลุงมาถึงแล้วเหรอ นึกว่าจะลืมซะแล้ว",
+          "src": 48
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "farm_c2",
+              "text": "ส่งผักบุ้งให้ลุงมี",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "delivered",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 1
+                  },
+                  "src": 50
+                },
+                {
+                  "t": "line",
+                  "id": "farm_3",
+                  "speaker": "farmer",
+                  "emotion": "happy",
+                  "text": "ขอบใจมากหลาน เอามะม่วงไปฝากตาเพิ่มลูกหนึ่งสิ",
+                  "src": 51
+                },
+                {
+                  "t": "set",
+                  "var": "mango",
+                  "op": "=",
+                  "value": {
+                    "k": "bool",
+                    "v": true
+                  },
+                  "src": 52
+                }
+              ],
+              "src": 49
+            },
+            {
+              "id": "farm_c4",
+              "text": "แอบชิมผักบุ้งก่อน",
+              "body": [
+                {
+                  "t": "line",
+                  "id": "farm_5",
+                  "speaker": "farmer",
+                  "emotion": "angry",
+                  "text": "เฮ้ย! นั่นผักบุ้งของลุงนะ",
+                  "src": 54
+                },
+                {
+                  "t": "line",
+                  "id": "farm_6",
+                  "speaker": "kid",
+                  "emotion": "shy",
+                  "text": "ขอโทษครับลุง... ผมแค่หิวนิดหน่อย",
+                  "src": 55
+                },
+                {
+                  "t": "set",
+                  "var": "delivered",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 1
+                  },
+                  "src": 56
+                }
+              ],
+              "src": 53
+            }
+          ],
+          "src": 49
+        },
+        {
+          "t": "line",
+          "id": "farm_7",
+          "speaker": "student",
+          "emotion": "happy",
+          "text": "ต้น! วิ่งเร็วจัง จะไปไหนเหรอ",
+          "src": 57
+        },
+        {
+          "t": "line",
+          "id": "farm_8",
+          "speaker": "kid",
+          "text": "ไปบ้านตาเพิ่มครับพี่ฝน ส่งของไปแล้ว {delivered} ที่ เหลืออีกที่เดียว",
+          "src": 58
+        },
+        {
+          "t": "jump",
+          "target": "elder",
+          "src": 59
+        }
+      ],
+      "src": 47
+    },
+    "elder": {
+      "id": "elder",
+      "tags": [],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "elder_house"
+          ],
+          "src": 62
+        },
+        {
+          "t": "line",
+          "id": "elder_1",
+          "speaker": "elder",
+          "emotion": "thinking",
+          "text": "ใครมาน่ะ... อ้อ ต้นนี่เอง",
+          "src": 63
+        },
+        {
+          "t": "set",
+          "var": "delivered",
+          "op": "+=",
+          "value": {
+            "k": "num",
+            "v": 1
+          },
+          "src": 64
+        },
+        {
+          "t": "if",
+          "branches": [
+            {
+              "cond": {
+                "k": "var",
+                "n": "mango"
+              },
+              "body": [
+                {
+                  "t": "line",
+                  "id": "elder_2",
+                  "speaker": "kid",
+                  "emotion": "happy",
+                  "text": "ลุงมีฝากมะม่วงมาด้วยครับตา",
+                  "src": 66
+                },
+                {
+                  "t": "line",
+                  "id": "elder_3",
+                  "speaker": "elder",
+                  "emotion": "happy",
+                  "text": "ใจดีจริงหลานคนนี้ ตาให้ค่าขนมเพิ่มอีกห้าบาท",
+                  "src": 67
+                },
+                {
+                  "t": "set",
+                  "var": "coins",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 5
+                  },
+                  "src": 68
+                }
+              ]
+            },
+            {
+              "body": [
+                {
+                  "t": "line",
+                  "id": "elder_4",
+                  "speaker": "elder",
+                  "text": "ขอบใจนะหลาน กลับบ้านดีๆ ระวังรถด้วยล่ะ",
+                  "src": 70
+                }
+              ]
+            }
+          ],
+          "src": 65
+        },
+        {
+          "t": "jump",
+          "target": "ending",
+          "src": 71
+        }
+      ],
+      "src": 61
+    },
+    "ending": {
+      "id": "ending",
+      "tags": [],
+      "body": [
+        {
+          "t": "if",
+          "branches": [
+            {
+              "cond": {
+                "k": "bin",
+                "op": ">=",
+                "a": {
+                  "k": "var",
+                  "n": "delivered"
+                },
+                "b": {
+                  "k": "num",
+                  "v": 3
+                }
+              },
+              "body": [
+                {
+                  "t": "line",
+                  "id": "ending_1",
+                  "speaker": "vendor",
+                  "emotion": "happy",
+                  "text": "ส่งครบ {delivered} ที่แล้ว เก่งมากต้น! วันนี้ได้ค่าขนมทั้งหมด {coins} บาท",
+                  "src": 75
+                },
+                {
+                  "t": "line",
+                  "id": "ending_2",
+                  "speaker": "kid",
+                  "emotion": "happy",
+                  "text": "เย้! พรุ่งนี้ผมมาช่วยอีกนะครับ",
+                  "src": 76
+                },
+                {
+                  "t": "event",
+                  "name": "sfx",
+                  "args": [
+                    "fanfare"
+                  ],
+                  "src": 77
+                }
+              ]
+            },
+            {
+              "body": [
+                {
+                  "t": "line",
+                  "id": "ending_3",
+                  "speaker": "vendor",
+                  "emotion": "sad",
+                  "text": "ยังส่งไม่ครบเลยนะต้น",
+                  "src": 79
+                }
+              ]
+            }
+          ],
+          "src": 74
+        },
+        {
+          "t": "end",
+          "src": 80
+        }
+      ],
+      "src": 73
+    }
+  },
+  "meta": {
+    "lines": 24,
+    "choices": 2,
+    "generator": "easydialogue 0.1.0"
+  },
+  "box": "teak"
+}
