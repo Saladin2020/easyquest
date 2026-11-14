@@ -20,12 +20,14 @@ These are dedicated to the public domain under CC0 1.0. Use them in any project;
 
 * **Thai town cast** (`samples/portraits/town_*`): the Easy Dialogue sample portraits, cropped from
   [Easy Sprite](https://github.com/Saladin2020/easysprite) sheets. They carry the same licence as Easy
-  Sprite's parts.
+  Sprite's parts. This includes the Muslim neighbours (`town_kopiah_boy`, `town_pak_cik`, `town_roti_seller`,
+  `town_hijab_teacher`).
 * **Background** (`samples/backgrounds/thai_village_topdown.png`): rendered from Easy Tilemap's
   `thai_village_topdown` demo map.
-* **Dialogue** `samples/dialogues/village_delivery.ezd` (and its compiled JSON): the Easy Dialogue demo
-  script, MIT.
-* **Demo quests** `samples/quests/village_delivery.ezq`: MIT, like the code.
+* **Dialogues** `samples/dialogues/village_delivery.ezd` and `ramadan_raya.ezd` (and their compiled JSON):
+  Easy Dialogue scripts, MIT.
+* **Demo quests** `samples/quests/village_delivery.ezq` and `ramadan_raya.ezq`: MIT, like the code.
+* **Icons** `kurma`, `bubur`, `ketupat`, `pelita`: CC0, like the other procedural icons.
 
 ## Runtimes
 

@@ -1,0 +1,604 @@
+{
+  "format": "easydialogue/1",
+  "id": "ramadan_raya",
+  "title": "รอมฎอนถึงรายอ",
+  "start": "ramadan",
+  "lang": "th",
+  "variables": {
+    "gave_kurma": false,
+    "ketupat": 0,
+    "greeted_raya": false,
+    "shared_ketupat": false
+  },
+  "characters": {
+    "ton": {
+      "id": "ton",
+      "name": "ต้น",
+      "portrait": "town_kid",
+      "color": "#f4ae3d",
+      "voice": "th_boy"
+    },
+    "adam": {
+      "id": "adam",
+      "name": "อาดัม",
+      "portrait": "town_kopiah_boy",
+      "color": "#5fae6e",
+      "voice": "th_boy2",
+      "side": "right"
+    },
+    "kakna": {
+      "id": "kakna",
+      "name": "ก๊ะนะ",
+      "portrait": "town_roti_seller",
+      "color": "#c8506a",
+      "voice": "th_auntie_south",
+      "side": "right"
+    },
+    "pakcik": {
+      "id": "pakcik",
+      "name": "ปะจิอิสมะแอ",
+      "portrait": "town_pak_cik",
+      "color": "#d8d2c0",
+      "voice": "th_uncle_south",
+      "side": "right"
+    },
+    "fatimah": {
+      "id": "fatimah",
+      "name": "ก๊ะฟาตีมะห์",
+      "portrait": "town_hijab_teacher",
+      "color": "#3fa08a",
+      "voice": "th_teacher",
+      "side": "right"
+    },
+    "vendor": {
+      "id": "vendor",
+      "name": "ป้าแดง",
+      "portrait": "town_vendor",
+      "color": "#e5806c",
+      "voice": "th_auntie",
+      "side": "right"
+    }
+  },
+  "nodes": {
+    "ramadan": {
+      "id": "ramadan",
+      "tags": [
+        "ramadan"
+      ],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "market"
+          ],
+          "src": 21
+        },
+        {
+          "t": "line",
+          "id": "ramadan_1",
+          "text": "เดือนรอมฎอน เพื่อนมุสลิมถือศีลอดตั้งแต่ฟ้าสางจนตะวันตกดิน ตอนเย็นตลาดจึงคึกคักเป็นพิเศษ",
+          "src": 22
+        },
+        {
+          "t": "line",
+          "id": "ramadan_2",
+          "speaker": "kakna",
+          "emotion": "happy",
+          "text": "ต้น ช่วยก๊ะหน่อยได้ไหม บูโบหม้อนี้กับอินทผลัมจะเอาไปให้คนละศีลอดที่มัสยิด",
+          "src": 23
+        },
+        {
+          "t": "line",
+          "id": "ramadan_3",
+          "speaker": "ton",
+          "text": "ได้ครับก๊ะ ผมไม่ได้ถือศีลอด แต่ผมช่วยยกได้นะ",
+          "src": 24
+        },
+        {
+          "t": "line",
+          "id": "ramadan_4",
+          "speaker": "vendor",
+          "emotion": "happy",
+          "text": "ป้าแดงฝากส้มโอไปด้วยถุงหนึ่ง แบ่งกันกินนะ",
+          "src": 25
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "ramadan_c5",
+              "text": "รับของแล้วรีบไปมัสยิด",
+              "body": [
+                {
+                  "t": "jump",
+                  "target": "mosque",
+                  "src": 26
+                }
+              ],
+              "src": 26
+            },
+            {
+              "id": "ramadan_c6",
+              "text": "วันนี้ไม่ว่างครับ",
+              "body": [
+                {
+                  "t": "jump",
+                  "target": "later",
+                  "src": 27
+                }
+              ],
+              "src": 27
+            }
+          ],
+          "src": 26
+        }
+      ],
+      "src": 20
+    },
+    "later": {
+      "id": "later",
+      "tags": [],
+      "body": [
+        {
+          "t": "line",
+          "id": "later_1",
+          "speaker": "kakna",
+          "text": "ไม่เป็นไรจ้ะ ไว้วันหลังนะต้น",
+          "src": 30
+        },
+        {
+          "t": "end",
+          "src": 31
+        }
+      ],
+      "src": 29
+    },
+    "mosque": {
+      "id": "mosque",
+      "tags": [],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "mosque"
+          ],
+          "src": 34
+        },
+        {
+          "t": "line",
+          "id": "mosque_1",
+          "text": "ที่ลานมัสยิด ผู้ใหญ่ปูเสื่อยาว จานอินทผลัมกับน้ำวางเรียงไว้ รอเวลาตะวันตกดิน",
+          "src": 35
+        },
+        {
+          "t": "line",
+          "id": "mosque_2",
+          "speaker": "adam",
+          "emotion": "happy",
+          "text": "ต้น! มาช่วยจริงๆ ด้วย",
+          "src": 36
+        },
+        {
+          "t": "line",
+          "id": "mosque_3",
+          "speaker": "ton",
+          "text": "ก๊ะนะกับป้าแดงฝากบูโบกับส้มโอมาครับ",
+          "src": 37
+        },
+        {
+          "t": "line",
+          "id": "mosque_4",
+          "speaker": "pakcik",
+          "emotion": "happy",
+          "text": "ขอบใจมากหลาน ปีไหนๆ เพื่อนบ้านทุกบ้านก็ช่วยกันแบบนี้",
+          "src": 38
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "mosque_c5",
+              "text": "ยื่นอินทผลัมให้ปะจิ",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "gave_kurma",
+                  "op": "=",
+                  "value": {
+                    "k": "bool",
+                    "v": true
+                  },
+                  "src": 40
+                },
+                {
+                  "t": "line",
+                  "id": "mosque_6",
+                  "speaker": "pakcik",
+                  "emotion": "happy",
+                  "text": "อินทผลัมนี่ละศีลอดลูกแรกเลย ตามแบบอย่างที่เราถือกันมา",
+                  "src": 41
+                }
+              ],
+              "src": 39
+            },
+            {
+              "id": "mosque_c7",
+              "text": "ช่วยอาดัมรินน้ำใส่แก้ว",
+              "body": [
+                {
+                  "t": "line",
+                  "id": "mosque_8",
+                  "speaker": "adam",
+                  "text": "แก้วละครึ่งพอนะ เดี๋ยวหก",
+                  "src": 43
+                },
+                {
+                  "t": "set",
+                  "var": "gave_kurma",
+                  "op": "=",
+                  "value": {
+                    "k": "bool",
+                    "v": true
+                  },
+                  "src": 44
+                }
+              ],
+              "src": 42
+            }
+          ],
+          "src": 39
+        },
+        {
+          "t": "line",
+          "id": "mosque_9",
+          "text": "เสียงอะซานดังมาจากหออะซาน ถึงเวลาละศีลอด",
+          "src": 45
+        },
+        {
+          "t": "event",
+          "name": "iftar",
+          "args": [],
+          "src": 46
+        },
+        {
+          "t": "line",
+          "id": "mosque_10",
+          "speaker": "fatimah",
+          "emotion": "happy",
+          "text": "ต้นนั่งกินด้วยกันนะ ไม่ต้องเกรงใจ",
+          "src": 47
+        },
+        {
+          "t": "line",
+          "id": "mosque_11",
+          "speaker": "ton",
+          "emotion": "happy",
+          "text": "ขอบคุณครับก๊ะ",
+          "src": 48
+        },
+        {
+          "t": "jump",
+          "target": "raya_prep",
+          "src": 49
+        }
+      ],
+      "src": 33
+    },
+    "raya_prep": {
+      "id": "raya_prep",
+      "tags": [
+        "raya"
+      ],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "tadika"
+          ],
+          "src": 52
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_1",
+          "text": "สิบกว่าวันต่อมา ใกล้วันรายอแล้ว ลานหน้าตาดีกาเต็มไปด้วยใบมะพร้าวอ่อน",
+          "src": 53
+        },
+        {
+          "t": "event",
+          "name": "raya",
+          "args": [
+            "prep"
+          ],
+          "src": 54
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_2",
+          "speaker": "pakcik",
+          "text": "วันนี้เราสานตูปะ ปลอกใบมะพร้าวไว้หุงข้าวในวันรายอ",
+          "src": 55
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_3",
+          "speaker": "pakcik",
+          "emotion": "thinking",
+          "text": "จับใบแบบนี้ พับลง สอดเข้าไป...",
+          "src": 56
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "raya_prep_c4",
+              "text": "ลองสานอย่างตั้งใจ",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "ketupat",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 2
+                  },
+                  "src": 58
+                },
+                {
+                  "t": "line",
+                  "id": "raya_prep_5",
+                  "speaker": "pakcik",
+                  "emotion": "happy",
+                  "text": "เก่งนี่ ลูกแรกก็สวยแล้ว",
+                  "src": 59
+                }
+              ],
+              "src": 57
+            },
+            {
+              "id": "raya_prep_c6",
+              "text": "ลองสานเร็วๆ ให้ได้เยอะ",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "ketupat",
+                  "op": "+=",
+                  "value": {
+                    "k": "num",
+                    "v": 1
+                  },
+                  "src": 61
+                },
+                {
+                  "t": "line",
+                  "id": "raya_prep_7",
+                  "speaker": "adam",
+                  "emotion": "happy",
+                  "text": "ฮ่าๆ ลูกนี้เบี้ยวหน่อยนะ แต่ใช้ได้",
+                  "src": 62
+                }
+              ],
+              "src": 60
+            }
+          ],
+          "src": 57
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_8",
+          "speaker": "adam",
+          "text": "อีกสองลูก มาช่วยกันสานให้ครบ",
+          "src": 63
+        },
+        {
+          "t": "set",
+          "var": "ketupat",
+          "op": "+=",
+          "value": {
+            "k": "num",
+            "v": 2
+          },
+          "src": 64
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_9",
+          "speaker": "fatimah",
+          "emotion": "happy",
+          "text": "แล้วคืนนี้มาช่วยจุดตะเกียงปะลิตาหน้าบ้านนะ",
+          "src": 65
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_10",
+          "text": "พอฟ้ามืด ตะเกียงไม้ไผ่เรียงเป็นแถวตลอดถนนหน้าบ้าน",
+          "src": 66
+        },
+        {
+          "t": "event",
+          "name": "pelita",
+          "args": [
+            "lit"
+          ],
+          "src": 67
+        },
+        {
+          "t": "line",
+          "id": "raya_prep_11",
+          "speaker": "ton",
+          "emotion": "happy",
+          "text": "สวยเหมือนดาวลงมาเดินเลยครับ",
+          "src": 68
+        },
+        {
+          "t": "jump",
+          "target": "raya_day",
+          "src": 69
+        }
+      ],
+      "src": 51
+    },
+    "raya_day": {
+      "id": "raya_day",
+      "tags": [
+        "raya"
+      ],
+      "body": [
+        {
+          "t": "event",
+          "name": "camera",
+          "args": [
+            "mosque"
+          ],
+          "src": 72
+        },
+        {
+          "t": "line",
+          "id": "raya_day_1",
+          "text": "เช้าวันรายอ พี่น้องมุสลิมไปละหมาดวันรายอที่มัสยิด ทุกคนแต่งชุดใหม่ ต้นมารอเพื่อนที่หน้ามัสยิด",
+          "src": 73
+        },
+        {
+          "t": "line",
+          "id": "raya_day_2",
+          "speaker": "adam",
+          "emotion": "happy",
+          "text": "ต้น! มาแล้วเหรอ",
+          "src": 74
+        },
+        {
+          "t": "choice",
+          "options": [
+            {
+              "id": "raya_day_c3",
+              "text": "สลามัตฮารีรายอนะอาดัม",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "greeted_raya",
+                  "op": "=",
+                  "value": {
+                    "k": "bool",
+                    "v": true
+                  },
+                  "src": 76
+                },
+                {
+                  "t": "line",
+                  "id": "raya_day_4",
+                  "speaker": "adam",
+                  "emotion": "happy",
+                  "text": "สลามัตฮารีรายอ! ต้นจำได้ด้วย",
+                  "src": 77
+                }
+              ],
+              "src": 75
+            },
+            {
+              "id": "raya_day_c5",
+              "text": "สวัสดีวันรายอนะ",
+              "body": [
+                {
+                  "t": "set",
+                  "var": "greeted_raya",
+                  "op": "=",
+                  "value": {
+                    "k": "bool",
+                    "v": true
+                  },
+                  "src": 79
+                },
+                {
+                  "t": "line",
+                  "id": "raya_day_6",
+                  "speaker": "adam",
+                  "emotion": "happy",
+                  "text": "ขอบใจนะ ปีนี้มากินข้าวบ้านเราด้วยกัน",
+                  "src": 80
+                }
+              ],
+              "src": 78
+            }
+          ],
+          "src": 75
+        },
+        {
+          "t": "line",
+          "id": "raya_day_7",
+          "speaker": "pakcik",
+          "text": "วันรายอ เราขอมาอัฟกัน คือขออภัยกันในสิ่งที่เคยทำผิดต่อกันมา",
+          "src": 81
+        },
+        {
+          "t": "line",
+          "id": "raya_day_8",
+          "speaker": "adam",
+          "emotion": "shy",
+          "text": "ต้น ขอมาอัฟนะ ที่เคยแย่งลูกบอลนาย",
+          "src": 82
+        },
+        {
+          "t": "line",
+          "id": "raya_day_9",
+          "speaker": "ton",
+          "emotion": "happy",
+          "text": "ไม่เป็นไรเลย ผมก็ขอโทษเหมือนกัน",
+          "src": 83
+        },
+        {
+          "t": "event",
+          "name": "maaf",
+          "args": [],
+          "src": 84
+        },
+        {
+          "t": "line",
+          "id": "raya_day_10",
+          "speaker": "pakcik",
+          "emotion": "happy",
+          "text": "เอาตูปะกับแกงไก่ไปฝากตาเพิ่มกับป้าแดงด้วยนะหลาน",
+          "src": 85
+        },
+        {
+          "t": "set",
+          "var": "shared_ketupat",
+          "op": "=",
+          "value": {
+            "k": "bool",
+            "v": true
+          },
+          "src": 86
+        },
+        {
+          "t": "line",
+          "id": "raya_day_11",
+          "speaker": "vendor",
+          "emotion": "happy",
+          "text": "ขอบใจจ้ะ ช่วงสารทเดือนสิบ ป้าจะทำขนมลาใหม่ๆ ส่งไปให้บ้านอาดัมบ้าง",
+          "src": 87
+        },
+        {
+          "t": "event",
+          "name": "sfx",
+          "args": [
+            "raya_loop"
+          ],
+          "src": 88
+        },
+        {
+          "t": "end",
+          "src": 89
+        }
+      ],
+      "src": 71
+    }
+  },
+  "meta": {
+    "lines": 32,
+    "choices": 4,
+    "generator": "easydialogue 0.1.0"
+  },
+  "box": "paper"
+}

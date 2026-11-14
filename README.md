@@ -112,6 +112,33 @@ reward:
 
 Full reference: **[docs/QUEST_FORMAT.md](docs/QUEST_FORMAT.md)**.
 
+## Multicultural village questline · รอมฎอนถึงรายอ
+
+`ramadan_raya.ezq` and its dialogue `ramadan_raya.ezd` are set in the same southern Thai town as the other
+Easy Suite samples, where Buddhist, Muslim and Chinese-Thai families live as neighbours. ต้น is a Buddhist
+boy who helps his Muslim friends:
+
+| Quest | What happens | Driven by |
+| --- | --- | --- |
+| `iftar_share` แบ่งอาหารละศีลอด | ก๊ะนะ (roti seller) and ป้าแดง (Buddhist vendor) send bubur, dates (อินทผลัม) and pomelo; ต้น carries them to the mosque courtyard and stays for iftar | `@camera market` · `@camera mosque` · `gave_kurma` · `@iftar` |
+| `raya_prep` เตรียมรายอ | Weave ketupat (ตูปะ) with ปะจิอิสมะแอ at the Tadika and light the pelita lamps (bonus: weave carefully for a 4th ketupat) | `@raya prep` · `ketupat >= 3` · `@pelita lit` |
+| `raya_visit` วันรายอ | Wish อาดัม Selamat Hari Raya, ask each other for forgiveness (ขอมาอัฟ) and take ketupat and chicken curry to the Buddhist neighbours, who promise khanom la for Sat Duan Sip | `greeted_raya` · `@maaf` · `shared_ketupat` · `@sfx raya_loop` |
+
+The quests unlock in order with `requires done(…)`. If the dialogue ends early (`fail on end ramadan_raya`), the
+iftar quest fails. Four new 16px icons come with it: `kurma`, `bubur`, `ketupat` and `pelita`. The adhan is
+only mentioned in narration and is never synthesised. `@sfx raya_loop` asks the game to play Easy SFX's
+`raya` loop.
+
+```bash
+easyquest play ramadan_raya --picks 0,0,0,0
+easyquest render ramadan_raya --picks 0,0,0,0 --quest raya_visit --style lantern --scale 3 --out raya.png
+```
+
+<p align="center">
+  <img src="docs/assets/questlog-raya-prep.png" width="440" alt="Quest log (paper): เตรียมรายอ, ketupat 2/3, giver ปะจิอิสมะแอ" />
+  <img src="docs/assets/questlog-raya.png" width="440" alt="Quest log (lantern): all three Ramadan / Raya quests completed, ketupat and pelita in the bag" />
+</p>
+
 ## CLI
 
 | Command | What it does |
@@ -177,13 +204,15 @@ quests.emit("enter", ["market"]);     // game events: map spawns from Easy Tilem
 
 * **Easy Dialogue**:
   * Easy Quest reads the `.ezd` directly: cast, `@var`, `~` writes and `@event` lines inside nodes. The
-    demo is built around Easy Dialogue's `village_delivery.ezd`.
+    demos are built around Easy Dialogue's `village_delivery.ezd` and the multicultural `ramadan_raya.ezd`
+    (same cast as Easy Dialogue's `salam_neighbours.ezd`).
   * Dialogue variables and quest flags share one namespace.
 * **Easy Sprite**: quest-giver portraits are the 64×64 `portraits/<set>/neutral.png` that Easy Dialogue
   crops from Easy Sprite sheets. `@char … portrait=town_vendor` → `giver vendor`.
 * **Easy Tilemap**:
   * Easy Tilemap's spawn and object names make good `enter <place>` / `talk <npc>` triggers.
-  * The sample background is a render of its `thai_village_topdown` map.
+  * The sample background is a render of its `thai_village_topdown` map. The Raya quests use the spawns of
+    its `multicultural_village` map (`market`, `mosque`, `tadika`).
 
 ## MCP
 
@@ -217,7 +246,9 @@ Ports: API / editor 8818 · MCP HTTP 8819 · Vite 5177.
 
 Seven small, local-first tools that share one look (teak, lantern gold, Kanit, 16/48px pixels), one
 workflow (CLI · web editor · MCP server) and the same targets (**Godot 4.3+** and **PixiJS v8**).
-ชุดเครื่องมือทำเกมพิกเซลสไตล์ไทย ใช้ร่วมกันได้ทั้งชุด
+ชุดเครื่องมือทำเกมพิกเซลสไตล์ไทย ใช้ร่วมกันได้ทั้งชุด  
+The samples share one multicultural southern Thai village: Buddhist temple, wooden kampung mosque and
+Chinese-Thai shrine on the same street. หมู่บ้านพหุวัฒนธรรม วัด มัสยิด ศาลเจ้า อยู่ร่วมกันในเมืองเดียว
 
 | | Tool | What it does | Repo |
 |:-:|---|---|---|
@@ -227,7 +258,7 @@ workflow (CLI · web editor · MCP server) and the same targets (**Godot 4.3+** 
 | <img src="docs/brand/logo-tilemap-96.png" width="40" alt="" /> | [**Easy Tilemap**](https://github.com/Saladin2020/easytilemap) | Top-down 16px maps: blob-47 autotiles, objects, collision, spawns. | [`easytilemap`](https://github.com/Saladin2020/easytilemap) |
 | <img src="docs/brand/logo-quest-96.png" width="40" alt="" /> | **Easy Quest** ← you are here | Text `.ezq` quests: steps, flags, items, rewards, linked to dialogue. | [`easyquest`](https://github.com/Saladin2020/easyquest) |
 | <img src="docs/brand/logo-sfx-96.png" width="40" alt="" /> | [**Easy SFX**](https://github.com/Saladin2020/easysfx) | Deterministic 8-bit SFX and 4-channel chiptune loops, typing blips. | [`easysfx`](https://github.com/Saladin2020/easysfx) |
-| <img src="docs/brand/logo-ui-96.png" width="40" alt="" /> | [**Easy UI**](https://github.com/Saladin2020/easyui) | Nine-slice pixel UI kit: panels, bars, inventory, menus, 24 icons. | [`easyui`](https://github.com/Saladin2020/easyui) |
+| <img src="docs/brand/logo-ui-96.png" width="40" alt="" /> | [**Easy UI**](https://github.com/Saladin2020/easyui) | Nine-slice pixel UI kit: panels, bars, inventory, menus, 30 icons. | [`easyui`](https://github.com/Saladin2020/easyui) |
 
 ### Works with
 

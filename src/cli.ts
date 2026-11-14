@@ -99,7 +99,7 @@ program
   .action(async (o: { force?: boolean; workspace?: string }) => {
     const root = await initWorkspace(workspaceOf(o.workspace), { force: o.force });
     console.log(`Initialized Easy Quest workspace at ${root}`);
-    console.log("  quests/       .ezq quest files (village_delivery.ezq demo)");
+    console.log("  quests/       .ezq quest files (village_delivery.ezq, ramadan_raya.ezq demos)");
     console.log("  dialogues/    linked Easy Dialogue scripts (.ezd + compiled .dialogue.json)");
     console.log("  portraits/    quest-giver portraits (Easy Dialogue portrait sets)");
     console.log("  backgrounds/  quest-log backgrounds (Easy Tilemap thai_village_topdown)");
