@@ -65,6 +65,18 @@ export interface ItemDef {
   line: number;
 }
 
+/** `@achievement id "Title" [icon=…] [desc="…"] [hidden] when <expr>` — unlocks once, the first time <expr> is true. */
+export interface AchievementDef {
+  id: string;
+  title: string;
+  when: Expr;
+  whenSrc: string;
+  icon: string;
+  desc?: string;
+  hidden?: boolean;
+  line: number;
+}
+
 export interface FlagDef {
   name: string;
   value: Value;
@@ -96,6 +108,8 @@ export interface QuestDoc {
   /** Game-side event names declared with @event (talk, enter, pickup…). */
   events: string[];
   quests: Quest[];
+  /** Present when the file declares @achievement lines. */
+  achievements?: AchievementDef[];
 }
 
 export type QuestStatus = "locked" | "available" | "active" | "completed" | "failed";

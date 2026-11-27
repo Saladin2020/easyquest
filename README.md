@@ -150,6 +150,12 @@ easyquest render ramadan_raya --picks 0,0,0,0 --quest raya_visit --style lantern
   <img src="docs/assets/questlog-raya.png" width="440" alt="Quest log (lantern): all three Ramadan / Raya quests completed, ketupat and pelita in the bag" />
 </p>
 
+## Achievements
+
+`@achievement id "ชื่อ" [icon=…] [desc="…"] [hidden] when <condition>` — unlocks once when the condition first holds
+(JS and Godot managers, parity-tested), signal `achievement_unlocked`, saved with the quest state. The quest log
+panel (`easyquest-log.js`) is unchanged; list them with `manager.achievements()`.
+
 ## CLI
 
 | Command | What it does |

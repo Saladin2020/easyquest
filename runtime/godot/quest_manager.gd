@@ -15,6 +15,7 @@ signal quest_started(id: String)
 signal step_completed(quest_id: String, step_id: String)
 signal quest_completed(id: String)
 signal quest_failed(id: String)
+signal achievement_unlocked(id: String)
 signal item_changed(id: String, count: int)
 signal flag_changed(name: String, value)
 signal quest_event(name: String, args: Array)
@@ -28,6 +29,7 @@ var items: Dictionary = {}
 var quests: Dictionary = {}
 var seen: Dictionary = {}
 var history: Array = []  ## same lines as the JS manager's `log`
+var achieved: Array = []  ## unlocked achievement ids, in unlock order
 
 
 func load_file(path: String, initial_vars: Dictionary = {}) -> bool:
@@ -56,6 +58,7 @@ func setup(d: Dictionary, initial_vars: Dictionary = {}) -> void:
 		quests[str(q["id"])] = {"status": "locked", "steps": {}}
 	seen = {}
 	history = []
+	achieved = []
 	update({})
 
 
@@ -409,8 +412,24 @@ func update(ev: Dictionary) -> void:
 				did_change = true
 		if did_change:
 			any = true
+	for a in doc.get("achievements", []):
+		var aid := str(a["id"])
+		if achieved.has(aid) or not _truthy(evaluate(a["when"])):
+			continue
+		achieved.append(aid)
+		history.append("achievement " + aid)
+		achievement_unlocked.emit(aid)
+		any = true
 	if any:
 		changed.emit()
+
+
+## Achievements for a menu: [{ id, title, icon, desc, hidden, unlocked }] in file order.
+func achievements() -> Array:
+	var out: Array = []
+	for a in doc.get("achievements", []):
+		out.append({"id": str(a["id"]), "title": str(a["title"]), "icon": str(a.get("icon", "star")), "desc": str(a.get("desc", "")), "hidden": bool(a.get("hidden", false)), "unlocked": achieved.has(str(a["id"]))})
+	return out
 
 
 # ---------------------------------------------------------------- save / load
@@ -424,7 +443,10 @@ func get_state() -> Dictionary:
 			if quests[id]["steps"].has(str(s["id"])):
 				done.append(str(s["id"]))
 		qs[id] = {"status": quests[id]["status"], "steps": done}
-	return {"quests": qs, "vars": vars.duplicate(), "items": items.duplicate(), "seen": seen.duplicate()}
+	var out := {"quests": qs, "vars": vars.duplicate(), "items": items.duplicate(), "seen": seen.duplicate()}
+	if not (doc.get("achievements", []) as Array).is_empty():
+		out["achievements"] = achieved.duplicate()
+	return out
 
 
 func load_state(state: Dictionary) -> void:
@@ -432,6 +454,9 @@ func load_state(state: Dictionary) -> void:
 		vars[k] = state["vars"][k]
 	items = state.get("items", {}).duplicate()
 	seen = state.get("seen", {}).duplicate()
+	achieved = []
+	for x in state.get("achievements", []):
+		achieved.append(str(x))
 	for q in doc["quests"]:
 		var id := str(q["id"])
 		var s: Dictionary = state.get("quests", {}).get(id, {})

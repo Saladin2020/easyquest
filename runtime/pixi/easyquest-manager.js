@@ -44,13 +44,15 @@ export class QuestManager {
     this.quests = {};
     for (const q of doc.quests) this.quests[q.id] = { status: "locked", steps: {} };
     this.seen = {};
+    /** Unlocked achievement ids, in unlock order. */
+    this.achieved = [];
     this.log = [];
     this.listeners = [];
     if (opts.onSignal) this.listeners.push(opts.onSignal);
     this.update(null);
   }
 
-  /** Subscribe to signals: quest_available, quest_started, step_completed, quest_completed, quest_failed, item_changed, flag_changed, quest_event, changed. */
+  /** Subscribe to signals: quest_available, quest_started, step_completed, quest_completed, quest_failed, achievement_unlocked, item_changed, flag_changed, quest_event, changed. */
   on(fn) {
     this.listeners.push(fn);
     return () => (this.listeners = this.listeners.filter((l) => l !== fn));
@@ -308,7 +310,19 @@ export class QuestManager {
       }
       if (changed) any = true;
     }
+    for (const a of this.doc.achievements ?? []) {
+      if (this.achieved.includes(a.id) || !truthy(this.evaluate(a.when))) continue;
+      this.achieved.push(a.id);
+      this._log(`achievement ${a.id}`);
+      this._signal("achievement_unlocked", a.id);
+      any = true;
+    }
     if (any) this._signal("changed");
+  }
+
+  /** Achievements for a log / menu: { id, title, icon, desc, hidden, unlocked } in file order. */
+  achievements() {
+    return (this.doc.achievements ?? []).map((a) => ({ id: a.id, title: a.title, icon: a.icon, desc: a.desc ?? "", hidden: Boolean(a.hidden), unlocked: this.achieved.includes(a.id) }));
   }
 
   // ------------------------------------------------------------------ save / load
@@ -320,13 +334,16 @@ export class QuestManager {
       const st = this.quests[q.id];
       quests[q.id] = { status: st.status, steps: q.steps.filter((s) => st.steps[s.id]).map((s) => s.id) };
     }
-    return { quests, vars: { ...this.vars }, items: { ...this.items }, seen: { ...this.seen } };
+    const out = { quests, vars: { ...this.vars }, items: { ...this.items }, seen: { ...this.seen } };
+    if (this.doc.achievements?.length) out.achievements = [...this.achieved];
+    return out;
   }
 
   load(state) {
     this.vars = { ...this.vars, ...(state.vars ?? {}) };
     this.items = { ...(state.items ?? {}) };
     this.seen = { ...(state.seen ?? {}) };
+    this.achieved = [...(state.achievements ?? [])];
     for (const q of this.doc.quests) {
       const s = state.quests?.[q.id];
       this.quests[q.id] = { status: s?.status ?? "locked", steps: Object.fromEntries((s?.steps ?? []).map((id) => [id, true])) };
