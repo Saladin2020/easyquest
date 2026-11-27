@@ -5,6 +5,7 @@ import {
   FORMAT,
   type CompileResult,
   type Diagnostic,
+  type AchievementDef,
   type DialogueLink,
   type Effect,
   type Expr,
@@ -37,7 +38,7 @@ const ID = /^[A-Za-z0-9_-]+$/;
 
 export const QUEST_KEYWORDS = ["giver", "summary", "requires", "start", "fail", "on", "reward:", "step", "bonus"] as const;
 export const STEP_KEYWORDS = ["done", "hint", "~", "give", "take", "@"] as const;
-const HEADERS = ["title", "id", "dialogue", "flag", "item", "event"] as const;
+const HEADERS = ["title", "id", "dialogue", "flag", "item", "event", "achievement"] as const;
 
 export function levenshtein(a: string, b: string): number {
   const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array<number>(b.length).fill(0)]);
@@ -268,6 +269,24 @@ export function compileQuests(source: string, opts: CompileOptions = {}): Compil
         case "event":
           for (const n of rest.trim().split(/[\s,]+/).filter(Boolean)) if (!doc.events.includes(n)) doc.events.push(n);
           return;
+        case "achievement": {
+          const m = /^([a-z0-9_-]+)\s+"([^"]*)"\s*(.*?)\s*\bwhen\s+(.+)$/.exec(rest.trim());
+          if (!m) {
+            err(line, `Expected @achievement id "ชื่อ" [icon=…] [desc="…"] [hidden] when <condition>`, 14);
+            return;
+          }
+          doc.achievements ??= [];
+          if (doc.achievements.some((a) => a.id === m[1])) err(line, `Duplicate achievement "${m[1]}"`, 14);
+          const a = attrs(m[3]!);
+          const whenSrc = m[4]!.trim();
+          const e = parseX(whenSrc, line, text.indexOf(whenSrc), `achievement ${m[1]}`);
+          if (!e) return;
+          const def: AchievementDef = { id: m[1]!, title: m[2]!, when: e, whenSrc, icon: a.icon ?? "star", line };
+          if (a.desc) def.desc = a.desc;
+          if (/(^|\s)hidden(\s|$)/.test(m[3]!.replace(/"[^"]*"/g, ""))) def.hidden = true;
+          doc.achievements.push(def);
+          return;
+        }
         default:
           err(line, `Unknown header @${key}${dym(key, HEADERS)} — use @${HEADERS.join(", @")}`, 1);
           return;

@@ -159,3 +159,18 @@ set by quest effects. Branch on quest state in the game, or give a value to the 
 
 Conditions are pre-parsed expression trees, so the runtimes don't need a parser. Every node keeps its source `line`. Both managers save as
 `{ quests: {id: {status, steps[]}}, vars, items, seen }` (`state()` / `get_state()`).
+
+## Achievements
+
+```
+@achievement first_job "งานแรกของต้น" icon=star desc="รับงานส่งของจากป้าแดง" when step(village_delivery, accept)
+@achievement village_helper "เด็กดีประจำหมู่บ้าน" icon=heart hidden when done(village_delivery)
+```
+
+Header lines anywhere before or between quests. The condition uses the same expressions as `requires` / `done when`
+(flags, `has()`, `count()`, `done()`, `step()`, `seen()` …). Each unlocks once, the first time its condition is true
+after any update, in file order: signal `achievement_unlocked(id)`, log line `achievement <id>`, saved in
+`state().achievements`. `manager.achievements()` / Godot `QuestManager.achievements()` list
+`{ id, title, icon, desc, hidden, unlocked }` for a menu (show hidden ones as ??? until unlocked).
+Game systems can feed them with events, e.g. `emit("heart", ["fatimah_kuih"])` from Easy NPC heart events or
+`emit("fish", ["pla_nin"])` from Easy Items life skills, and use `seen(heart)` / `seen(fish)`.

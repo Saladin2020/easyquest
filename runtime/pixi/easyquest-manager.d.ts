@@ -5,11 +5,13 @@ export interface QuestState {
   vars: Record<string, Value>;
   items: Record<string, number>;
   seen: Record<string, number>;
+  achievements?: string[];
 }
 
 export type QuestSignal =
   | "quest_available"
   | "quest_started"
+  | "achievement_unlocked"
   | "step_completed"
   | "quest_completed"
   | "quest_failed"
@@ -28,6 +30,8 @@ export declare class QuestManager {
   items: Record<string, number>;
   quests: Record<string, { status: QuestStatus; steps: Record<string, boolean> }>;
   seen: Record<string, number>;
+  /** Unlocked achievement ids, in unlock order. */
+  achieved: string[];
   log: string[];
   on(fn: (name: QuestSignal, ...args: unknown[]) => void): () => void;
   status(id: string): QuestStatus;
@@ -42,6 +46,8 @@ export declare class QuestManager {
   take(item: string, n?: number): void;
   update(ev: { name: string; args: string[] } | null): void;
   state(): QuestState;
+  /** Achievements in file order with their unlocked state. */
+  achievements(): Array<{ id: string; title: string; icon: string; desc: string; hidden: boolean; unlocked: boolean }>;
   load(state: Partial<QuestState>): this;
   _log(line: string): void;
 }

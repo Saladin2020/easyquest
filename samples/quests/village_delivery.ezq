@@ -15,6 +15,10 @@
 @item kanom_chan "ขนมชั้น" desc="รางวัลจากป้าแดง"
 @item nam_pan "น้ำปั่น" desc="แก้วโปรดของต้น"
 
+@achievement first_job "งานแรกของต้น" icon=star desc="รับงานส่งของจากป้าแดง" when step(village_delivery, accept)
+@achievement pocket_money "กระปุกเริ่มหนัก" icon=coin desc="มีค่าขนม 15 บาท" when coins >= 15
+@achievement village_helper "เด็กดีประจำหมู่บ้าน" icon=heart desc="ส่งของครบทุกบ้าน" hidden when done(village_delivery)
+
 === village_delivery "ต้นส่งของรอบหมู่บ้าน"
 giver vendor
 summary ป้าแดงฝากของให้ลูกค้าสามเจ้า ส่งไปแล้ว {delivered}/3 ที่
